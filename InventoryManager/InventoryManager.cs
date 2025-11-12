@@ -21,7 +21,10 @@ namespace InventoryManagerNmspc
             {
                 throw new ArgumentNullException(nameof(item));
             }
-            Items.Add(item);
+            if (Items.FindIndex(x => x.Name == item.Name) == -1)
+            {
+                Items.Add(item);
+            }
             SaveItems();
         }
         public void RemoveItem(InventoryItem item)
@@ -58,7 +61,7 @@ namespace InventoryManagerNmspc
                     {
                         int quantity;
                         decimal price;
-                        if (int.TryParse(parts[1], out quantity) && decimal.TryParse(parts[2], out price))
+                        if (int.TryParse(parts[1], out quantity) && decimal.TryParse(parts[2], out price) && quantity >= 0 && price >= 0)
                         {
                             Items.Add(new InventoryItem(parts[0], quantity, price, parts[3]));
                         }

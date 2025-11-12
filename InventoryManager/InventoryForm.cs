@@ -144,9 +144,9 @@ namespace InventoryManagerNmspc
                 MessageBox.Show("Неверный формат количества или цены!");
                 return;
             }
-            InventoryItem newItem = new InventoryItem(nameTextBox.Text, quantity, price, categoryTextBox.Text);
             try
             {
+                InventoryItem newItem = new InventoryItem(nameTextBox.Text, quantity, price, categoryTextBox.Text);
                 inventoryManager.AddItem(newItem);
                 nameTextBox.Clear();
                 quantityTextBox.Clear();
