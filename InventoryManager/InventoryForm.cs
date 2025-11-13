@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace InventoryManagerNmspc
@@ -6,6 +8,7 @@ namespace InventoryManagerNmspc
     public partial class InventoryForm : Form
     {
         private InventoryManager inventoryManager;
+        private NotificationManager notificationManager;
         private Label nameLabel;
         private TextBox nameTextBox;
         private Label quantityLabel;
@@ -20,8 +23,18 @@ namespace InventoryManagerNmspc
         private Label itemsLabel;
         private ListBox itemsListBox;
 
+        private Label thresholdLabel;
+        private TextBox thresholdTextBox;
+        private Button noticationButton;
+        private Timer notificationTimer;
+
+        private bool allowNotifications = false;
+
         public InventoryForm()
         {
+            inventoryManager = new InventoryManager();
+            notificationManager = new NotificationManager();
+
             this.Text = "Управление инвентарём";
             this.Width = 500;
             this.Height = 400;
@@ -98,8 +111,30 @@ namespace InventoryManagerNmspc
             {
                 Location = new System.Drawing.Point(10, 130),
                 Width = 460,
-                Height = 200
+                Height = 150
             };
+            thresholdLabel = new Label
+            {
+                Location = new Point(10, 290),
+                Text = "Порог уведомлений:",
+                Width = 120
+            };
+            thresholdTextBox = new TextBox
+            {
+                Location = new Point(130, 290),
+                Width = 80,
+                Text = notificationManager.NotificationThreshold.ToString(),
+            };
+            noticationButton = new Button
+            {
+                Location = new Point(220, 290),
+                Width = 150,
+                Height = 40,
+                Text = "Обновить порог количества товара"
+            };
+
+            thresholdTextBox.KeyPress += ThresholdTextBox_KeyPress;
+            noticationButton.Click += NotificationButton_Click;
 
             this.Controls.Add(nameLabel);
             this.Controls.Add(nameTextBox);
@@ -114,11 +149,69 @@ namespace InventoryManagerNmspc
             this.Controls.Add(updateQuantityButton);
             this.Controls.Add(itemsLabel);
             this.Controls.Add(itemsListBox);
+            this.Controls.Add(thresholdLabel);
+            this.Controls.Add(thresholdTextBox);
+            this.Controls.Add(noticationButton);
 
-            inventoryManager = new InventoryManager();
             UpdateItemsList();
+            this.Shown += (s, e) => StartNotificationTimer();
         }
 
+        private async void StartNotificationTimer()
+        {
+            await Task.Delay(5000);
+
+            allowNotifications = true;
+
+            notificationTimer = new Timer();
+            notificationTimer.Interval = 10000;
+            notificationTimer.Tick += (s, e) => CheckAndUpdateNotifications();
+            notificationTimer.Start();
+
+            CheckAndUpdateNotifications();
+        }
+
+        private void CheckAndUpdateNotifications()
+        {
+            var newNotifications = notificationManager.CheckInventoryLevels(inventoryManager.Items);
+
+            foreach (var notification in newNotifications)
+            {
+                ShowNotificationAlert(notification);
+            }
+        }
+
+        private void ShowNotificationAlert(string notification)
+        {
+            MessageBox.Show(notification, "Уведомление о низком запасе",
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void ThresholdTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void NotificationButton_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(thresholdTextBox.Text, out int threshold) && threshold >= 0)
+            {
+                notificationManager.NotificationThreshold = threshold;
+
+                notificationManager.SaveThreshold();
+
+                MessageBox.Show($"Порог уведомлений установлен: {threshold}", "Порог обновлен",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Введите корректное числовое значение для порога!", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void UpdateItemsList()
         {
             itemsListBox.Items.Clear();
@@ -127,6 +220,7 @@ namespace InventoryManagerNmspc
                 itemsListBox.Items.Add($"{item.Name} - Количество: {item.Quantity} | Цена: {item.Price} руб. | Категория: {item.Category}");
             }
         }
+
         private void AddItemButton_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(nameTextBox.Text) ||
@@ -159,6 +253,7 @@ namespace InventoryManagerNmspc
                 MessageBox.Show(ex.Message);
             }
         }
+
         private void RemoveItemButton_Click(object sender, EventArgs e)
         {
             if (itemsListBox.SelectedIndex == -1)
@@ -186,6 +281,7 @@ namespace InventoryManagerNmspc
                 }
             }
         }
+
         private void UpdateQuantityButton_Click(object sender, EventArgs e)
         {
             if (itemsListBox.SelectedIndex == -1)
@@ -223,6 +319,12 @@ namespace InventoryManagerNmspc
                     }
                 }
             }
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            notificationTimer?.Stop();
+            base.OnFormClosed(e);
         }
     }
 }

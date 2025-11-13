@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="InventoryItemTests.cs" />
     <Compile Include="InventoryManagerTests.cs" />
+    <Compile Include="NotificationManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

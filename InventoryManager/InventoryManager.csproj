@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="InventoryItem.cs" />
     <Compile Include="InventoryManager.cs" />
+    <Compile Include="NotificationManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
