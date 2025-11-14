@@ -31,7 +31,7 @@ namespace InventoryManagerNmspc
             get { return price; }
             set
             {
-                if (value < 0) throw new ArgumentException("Цены не может быть отрицательной!");
+                if (value < 0) throw new ArgumentException("Цена не может быть отрицательной!");
                 else price = value;
             }
         }

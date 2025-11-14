@@ -16,7 +16,7 @@ namespace InventoryManagerTests
         }
 
         [TestMethod]
-        public void Constructor_ZeroParametrs_CreateObject()
+        public void Constructor_ZeroParametrs_CreateObject() // тест на создание менеджера товаров
         {
             InventoryManagerNmspc.InventoryManager manager = new InventoryManagerNmspc.InventoryManager();
 
@@ -25,7 +25,7 @@ namespace InventoryManagerTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void AddItem_NullItem_ThrowsException()
+        public void AddItem_NullItem_ThrowsException() // тест на добавление null-товара в менеджер товаров
         {
             InventoryManagerNmspc.InventoryManager manager = new InventoryManagerNmspc.InventoryManager();
 

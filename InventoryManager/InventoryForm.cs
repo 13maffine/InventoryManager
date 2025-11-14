@@ -42,55 +42,65 @@ namespace InventoryManagerNmspc
             {
                 Location = new System.Drawing.Point(10, 10),
                 Text = "Название",
+                AccessibleName = "nameLabel",
             };
             nameTextBox = new TextBox
             {
                 Location = new System.Drawing.Point(10, 40),
                 Width = 150,
+                AccessibleName = "nameTextBox",
             };
             quantityLabel = new Label
             {
                 Location = new System.Drawing.Point(170, 10),
                 Text = "Количество",
                 Width = 80,
+                AccessibleName = "quantityLabel",
             };
             quantityTextBox = new TextBox
             {
                 Location = new System.Drawing.Point(170, 40),
                 Width = 80,
+                AccessibleName = "quantityTextBox",
             };
             priceLabel = new Label
             {
                 Location = new System.Drawing.Point(260, 10),
                 Text = " Цена",
+                AccessibleName = "priceLabel",
             };
             priceTextBox = new TextBox
             {
                 Location = new System.Drawing.Point(260, 40),
                 Width = 100,
+                AccessibleName = "priceTextBox",
             };
             categoryLabel = new Label
             {
                 Location = new System.Drawing.Point(370, 10),
                 Text = "Категория",
+                AccessibleName = "categoryLabel",
             };
             categoryTextBox = new TextBox
             {
                 Location = new System.Drawing.Point(370, 40),
                 Width = 100,
+                AccessibleName = "categoryTextBox",
             };
             addItemButton = new Button
             {
                 Location = new System.Drawing.Point(10, 70),
                 Text = "Добавить",
-                Width = 100
+                Width = 100,
+                AccessibleName = "addItemButton",
             };
             addItemButton.Click += AddItemButton_Click;
             removeItemButton = new Button
             {
                 Location = new System.Drawing.Point(120, 70),
                 Text = "Удалить",
-                Width = 100
+                Width = 100,
+                AccessibleName = "removeItemButton",
             };
             removeItemButton.Click += RemoveItemButton_Click;
 
@@ -99,6 +109,7 @@ namespace InventoryManagerNmspc
                 Location = new System.Drawing.Point(220, 70),
                 Text = "Обновить кол-во товара",
                 Width = 150,
+                AccessibleName = "updateQuantityButton",
             };
             updateQuantityButton.Click += UpdateQuantityButton_Click;
 
@@ -106,31 +117,36 @@ namespace InventoryManagerNmspc
             {
                 Location = new System.Drawing.Point(10, 100),
                 Text = "Список товаров",
+                AccessibleName = "itemsLabel",
             };
             itemsListBox = new ListBox
             {
                 Location = new System.Drawing.Point(10, 130),
                 Width = 460,
-                Height = 150
+                Height = 150,
+                AccessibleName = "itemsListBox",
             };
             thresholdLabel = new Label
             {
                 Location = new Point(10, 290),
                 Text = "Порог уведомлений:",
-                Width = 120
+                Width = 120,
+                AccessibleName = "thresholdLabel",
             };
             thresholdTextBox = new TextBox
             {
                 Location = new Point(130, 290),
                 Width = 80,
                 Text = notificationManager.NotificationThreshold.ToString(),
+                AccessibleName = "thresholdTextBox",
             };
             noticationButton = new Button
             {
                 Location = new Point(220, 290),
                 Width = 150,
                 Height = 40,
-                Text = "Обновить порог количества товара"
+                Text = "Обновить порог количества товара",
+                AccessibleName = "noticationButton",
             };
 
             thresholdTextBox.KeyPress += ThresholdTextBox_KeyPress;

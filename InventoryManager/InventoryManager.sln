@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManager", "Invento
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagerTests", "..\InventoryManagerTests\InventoryManagerTests.csproj", "{A3AD6E7C-C331-4E67-925A-8C1284B83A4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITests", "..\UITests\UITests.csproj", "{918ADDAA-6DED-4676-B46B-D161BEB86A04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A3AD6E7C-C331-4E67-925A-8C1284B83A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3AD6E7C-C331-4E67-925A-8C1284B83A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3AD6E7C-C331-4E67-925A-8C1284B83A4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{918ADDAA-6DED-4676-B46B-D161BEB86A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{918ADDAA-6DED-4676-B46B-D161BEB86A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{918ADDAA-6DED-4676-B46B-D161BEB86A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{918ADDAA-6DED-4676-B46B-D161BEB86A04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
